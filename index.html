@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eternal Words - Your Love Letter</title>
+    <style>
+        :root {
+            --soft-rose: #F8E1E9;
+            --warm-ivory: #FDF6E8;
+            --deep-bordeaux: #4A2C3F;
+            --subtle-gold: #D4AF37;
+            --envelope-shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--warm-ivory);
+            font-family: 'Lora', serif;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        .controls {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 2px 10px var(--envelope-shadow);
+            margin-bottom: 20px;
+        }
+
+        .controls select, .controls button {
+            flex: 1 1 45%;
+            max-width: 200px;
+            padding: 10px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .controls button {
+            background: var(--deep-bordeaux);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .controls button:hover {
+            background: var(--subtle-gold);
+            color: var(--deep-bordeaux);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .envelope {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background: var(--soft-rose);
+            position: relative;
+            box-shadow: 0 10px 20px var(--envelope-shadow);
+            border-radius: 10px;
+            overflow: hidden;
+            transform: scale(1);
+            transition: transform 0.5s ease;
+        }
+
+        .envelope.open {
+            transform: scale(1.1);
+        }
+
+        .flap {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background: var(--soft-rose);
+            top: 0;
+            transform-origin: top;
+            border-bottom: 2px solid var(--subtle-gold);
+            transition: transform 0.5s ease;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+        }
+
+        .flap.open {
+            transform: rotateX(180deg);
+        }
+
+        .letter {
+            width: 90%;
+            height: auto;
+            max-height: 85%;
+            background: var(--warm-ivory);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            opacity: 0;
+            transition: all 0.5s ease 0.5s;
+            font-family: 'Great Vibes', cursive;
+            color: var(--deep-bordeaux);
+            font-size: 18px;
+            overflow-y: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--envelope-shadow);
+        }
+
+        .letter.visible {
+            opacity: 1;
+            top: 55%;
+        }
+
+        .petals {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--soft-rose);
+            border-radius: 50% 0 50% 50%;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { top: -10%; opacity: 1; }
+            100% { top: 110%; opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .letter {
+                font-size: 16px;
+            }
+
+            .envelope {
+                max-width: 300px;
+                height: 250px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora&family=Cinzel&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="controls">
+        <select id="background">
+            <option value="rose">Rose Garden</option>
+            <option value="stars">Starry Night</option>
+            <option value="paris">Paris Lights</option>
+        </select>
+        <select id="music" onchange="playMusic()">
+            <option value="">Select Music</option>
+            <option value="Dilaw_Maki.mp3">Dilaw - Maki</option>
+            <option value="KMNABK_DJ.mp3">KMNABK - DJ</option>
+            <option value="Palagi_TJ.mp3">Palagi - TJ</option>
+        </select>
+        <button onclick="openLetter()">Open Letter</button>
+    </div>
+
+    <div class="container">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="letter">
+                My Love,
+                <br><br>
+                I am just writing to say how much I love you. You are the most beautiful person I have ever met, and I am so lucky to have you in my life. You make me happy every day, and I can't imagine my life without you.
+
+                I also want you to know that I miss you even more. I can't wait to see you again and hold you in my arms. I love you more than words can express. The things you see and want us to do—we will do them after one year, my love.
+                
+                Always express your feelings, my love. I will always listen and understand you. I will never get tired of you or of us—always remember that. Let's make this work. Someday, we will have our own family and face everything together, for better or for worse.
+                
+                I love you so much.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add falling petals
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petals';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 10000);
+        }
+
+        setInterval(createPetal, 500);
+
+        // Letter opening animation
+        function openLetter() {
+            const envelope = document.querySelector('.envelope');
+            const flap = document.querySelector('.flap');
+            const letter = document.querySelector('.letter');
+
+            envelope.classList.add('open');
+            flap.classList.add('open');
+            letter.classList.add('visible');
+        }
+
+        // Background changer
+        document.getElementById('background').addEventListener('change', function(e) {
+            const container = document.querySelector('.container');
+            container.style.background = e.target.value === 'stars' ? '#1a2b5f' : 
+                                      e.target.value === 'paris' ? '#2c3e50' : 
+                                      'var(--warm-ivory)';
+        });
+
+        let currentAudio = null;
+
+        function playMusic() {
+            const musicSelect = document.getElementById('music');
+            const selectedMusic = musicSelect.value;
+
+            // Stop currently playing audio if any
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+
+            // Play the selected music
+            if (selectedMusic) {
+                currentAudio = new Audio(selectedMusic);
+                currentAudio.play();
+            }
+        }
+    </script>
+</body>
+</html>
