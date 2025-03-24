@@ -6,11 +6,7 @@
     <title>Eternal Words - Your Love Letter</title>
     <style>
         :root {
-            --soft-rose: #F8E1E9;
             --warm-ivory: #FDF6E8;
-            --deep-bordeaux: #4A2C3F;
-            --subtle-gold: #D4AF37;
-            --envelope-shadow: rgba(0, 0, 0, 0.2);
         }
 
         * {
@@ -22,12 +18,11 @@
         body {
             background: var(--warm-ivory);
             font-family: 'Lora', serif;
-            overflow: hidden;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            min-height: 100vh;
             padding: 20px;
         }
 
@@ -41,7 +36,6 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 2px 10px var(--envelope-shadow);
             margin-bottom: 20px;
         }
 
@@ -59,118 +53,28 @@
         }
 
         .controls button {
-            background: var(--deep-bordeaux);
+            background: #4A2C3F;
             color: #fff;
             font-weight: bold;
         }
 
         .controls button:hover {
-            background: var(--subtle-gold);
-            color: var(--deep-bordeaux);
+            background: #D4AF37;
+            color: #4A2C3F;
         }
 
-        .container {
-            width: 100%;
-            max-width: 600px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .envelope {
+        .image {
             width: 100%;
             max-width: 400px;
-            height: 300px;
-            background: var(--soft-rose);
-            position: relative;
-            box-shadow: 0 10px 20px var(--envelope-shadow);
-            border-radius: 10px;
-            overflow: hidden;
-            transform: scale(1);
-            transition: transform 0.5s ease;
-        }
-
-        .envelope.open {
-            transform: scale(1.1);
-        }
-
-        .flap {
-            position: absolute;
-            width: 100%;
-            height: 50%;
-            background: var(--soft-rose);
-            top: 0;
-            transform-origin: top;
-            border-bottom: 2px solid var(--subtle-gold);
-            transition: transform 0.5s ease;
-            clip-path: polygon(0 0, 50% 100%, 100% 0);
-        }
-
-        .flap.open {
-            transform: rotateX(180deg);
-        }
-
-        .letter {
-            width: 90%;
             height: auto;
-            max-height: 85%;
-            background: var(--warm-ivory);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            opacity: 0;
-            transition: all 0.5s ease 0.5s;
-            font-family: 'Great Vibes', cursive;
-            color: var(--deep-bordeaux);
-            font-size: 18px;
-            overflow-y: auto;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px var(--envelope-shadow);
+            cursor: pointer;
+            transition: opacity 0.5s ease;
         }
 
-        .letter.visible {
-            opacity: 1;
-            top: 55%;
-        }
-
-        .petals {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: var(--soft-rose);
-            border-radius: 50% 0 50% 50%;
-            animation: fall 10s linear infinite;
-        }
-
-        @keyframes fall {
-            0% { top: -10%; opacity: 1; }
-            100% { top: 110%; opacity: 0; }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .controls {
-                flex-direction: column;
-            }
-
-            .letter {
-                font-size: 16px;
-            }
-
-            .envelope {
-                max-width: 300px;
-                height: 250px;
-            }
+        .hidden {
+            display: none;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora&family=Cinzel&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="controls">
@@ -188,53 +92,25 @@
         <button onclick="openLetter()">Open Letter</button>
     </div>
 
-    <div class="container">
-        <div class="envelope">
-            <div class="flap"></div>
-            <div class="letter">
-                My Love,
-                <br><br>
-                I am just writing to say how much I love you. You are the most beautiful person I have ever met, and I am so lucky to have you in my life. You make me happy every day, and I can't imagine my life without you.
-
-                I also want you to know that I miss you even more. I can't wait to see you again and hold you in my arms. I love you more than words can express. The things you see and want us to do—we will do them after one year, my love.
-                
-                Always express your feelings, my love. I will always listen and understand you. I will never get tired of you or of us—always remember that. Let's make this work. Someday, we will have our own family and face everything together, for better or for worse.
-                
-                I love you so much.
-            </div>
-        </div>
-    </div>
+    <img src="Envelop.png" alt="Envelope" class="image" id="envelope">
+    <img src="Letter.jpg" alt="Letter" class="image hidden" id="letter">
 
     <script>
-        // Add falling petals
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.className = 'petals';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = Math.random() * 5 + 5 + 's';
-            document.body.appendChild(petal);
-            setTimeout(() => petal.remove(), 10000);
-        }
-
-        setInterval(createPetal, 500);
-
-        // Letter opening animation
         function openLetter() {
-            const envelope = document.querySelector('.envelope');
-            const flap = document.querySelector('.flap');
-            const letter = document.querySelector('.letter');
+            const envelope = document.getElementById('envelope');
+            const letter = document.getElementById('letter');
 
-            envelope.classList.add('open');
-            flap.classList.add('open');
-            letter.classList.add('visible');
+            // Hide the envelope and show the letter
+            envelope.classList.add('hidden');
+            letter.classList.remove('hidden');
         }
 
         // Background changer
         document.getElementById('background').addEventListener('change', function(e) {
-            const container = document.querySelector('.container');
-            container.style.background = e.target.value === 'stars' ? '#1a2b5f' : 
-                                      e.target.value === 'paris' ? '#2c3e50' : 
-                                      'var(--warm-ivory)';
+            const body = document.body;
+            body.style.background = e.target.value === 'stars' ? '#1a2b5f' : 
+                                    e.target.value === 'paris' ? '#2c3e50' : 
+                                    'var(--warm-ivory)';
         });
 
         let currentAudio = null;
