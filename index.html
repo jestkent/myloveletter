@@ -10,8 +10,14 @@
         :root {
             --warm-ivory: #FDF6E8;
             --rose-red: #e91e63;
+            --rose-dark: #c2185b;
+            --rose-light: #f48fb1;
             --gold-accent: #D4AF37;
             --deep-purple: #4A2C3F;
+            --night-blue: #0a1230;
+            --night-purple: #211442;
+            --leaf-green: #4CAF50;
+            --leaf-dark: #388E3C;
         }
 
         * {
@@ -147,11 +153,222 @@
 
         /* Background Styles */
         .rose-garden {
-            background: linear-gradient(to bottom, var(--warm-ivory), #ffebee);
+            background: linear-gradient(to bottom, var(--warm-ivory), #fff5f7);
+        }
+
+        /* Rose Garden Elements */
+        .garden-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .garden-background {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: linear-gradient(to top, #2e7d32, transparent);
+            z-index: 1;
+        }
+
+        .rose-bush {
+            position: absolute;
+            bottom: 0;
+            width: 120px;
+            height: 150px;
+            z-index: 2;
+        }
+
+        .rose {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--rose-red);
+            z-index: 3;
+            transform-origin: center;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        .rose::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--rose-light), var(--rose-red));
+            opacity: 0.7;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 25px;
+            height: 15px;
+            background: var(--leaf-green);
+            border-radius: 50% 50% 0 50%;
+            z-index: 2;
+            transform-origin: bottom left;
+            box-shadow: 0 0 3px rgba(0,0,0,0.1);
+        }
+
+        .leaf::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 6px;
+            width: 10px;
+            height: 1px;
+            background: var(--leaf-dark);
+            transform: rotate(45deg);
+        }
+
+        .stem {
+            position: absolute;
+            width: 5px;
+            height: 60px;
+            background: var(--leaf-dark);
+            z-index: 1;
+            transform-origin: bottom center;
+        }
+
+        .rose-glow {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(244,143,177,0.15), transparent 70%);
+            z-index: 1;
         }
 
         .starry-night {
-            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(to bottom, var(--night-blue) 0%, var(--night-purple) 40%, #1a0a2e 100%);
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            filter: blur(0.1px);
+            z-index: 1;
+        }
+
+        .star.tiny {
+            width: 1px;
+            height: 1px;
+            opacity: 0.7;
+        }
+
+        .star.small {
+            width: 2px;
+            height: 2px;
+            opacity: 0.8;
+        }
+
+        .star.medium {
+            width: 3px;
+            height: 3px;
+            opacity: 0.9;
+        }
+
+        .star.large {
+            width: 4px;
+            height: 4px;
+            opacity: 1;
+        }
+
+        .star.twinkle {
+            animation: twinkle 4s infinite;
+        }
+
+        .star.shimmer {
+            animation: shimmer 6s infinite;
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #fff 20%, #fff 60%, transparent);
+            z-index: 2;
+            animation: shooting 5s linear infinite;
+            opacity: 0;
+            transform-origin: right;
+        }
+
+        .moon {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 25% 25%, #fff 0%, #f5f5f5 35%, #ddd 100%);
+            box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.4);
+            top: 50px;
+            right: 50px;
+            z-index: 1;
+        }
+
+        .moonlight {
+            position: absolute;
+            width: 200px;
+            height: 400px;
+            top: 90px;
+            right: 0;
+            background: radial-gradient(ellipse at top right, rgba(255,255,255,0.2), transparent 70%);
+            z-index: 1;
+            filter: blur(15px);
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(40, 40, 80, 0.5);
+            border-radius: 50%;
+            filter: blur(10px);
+            z-index: 2;
+            animation: float-cloud 120s linear infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.5; }
+            25% { opacity: 0.8; }
+            50% { opacity: 0.3; }
+            75% { opacity: 1; }
+        }
+
+        @keyframes shooting {
+            0% { 
+                transform: translateX(0) translateY(0) rotate(15deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            20% {
+                transform: translateX(-200px) translateY(100px) rotate(15deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(-200px) translateY(100px) rotate(15deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes float-cloud {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-200px); }
         }
 
         .paris-lights {
@@ -208,6 +425,19 @@
         @keyframes sparkle {
             0%, 100% { opacity: 0.2; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Rose sway animation */
+        @keyframes rose-sway {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Leaf flutter animation */
+        @keyframes leaf-flutter {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
         }
 
         /* Heartbeat animation for letter opening */
@@ -315,10 +545,12 @@
             
             switch(e.target.value) {
                 case 'rose-garden':
+                    createRoseGarden();
                     createPetals(30);
                     break;
                 case 'starry-night':
-                    createPetals(40);
+                    createNightSky();
+                    createPetals(15); // Fewer petals for night sky
                     break;
                 case 'paris-lights':
                     createParisScene();
@@ -328,8 +560,143 @@
         });
 
         function clearElements() {
-            const elements = document.querySelectorAll('.petal, .paris-background, .paris-overlay, .eiffel-glow, .gold-sparkle');
+            const elements = document.querySelectorAll('.petal, .paris-background, .paris-overlay, .eiffel-glow, .gold-sparkle, .star, .shooting-star, .moon, .moonlight, .cloud, .garden-container');
             elements.forEach(el => el.remove());
+        }
+
+        function createRoseGarden() {
+            // Create garden container
+            const gardenContainer = document.createElement('div');
+            gardenContainer.className = 'garden-container';
+            document.body.appendChild(gardenContainer);
+            
+            // Add garden background (grass)
+            const gardenBackground = document.createElement('div');
+            gardenBackground.className = 'garden-background';
+            gardenContainer.appendChild(gardenBackground);
+            
+            // Add rose glow
+            const roseGlow = document.createElement('div');
+            roseGlow.className = 'rose-glow';
+            gardenContainer.appendChild(roseGlow);
+            
+            // Create multiple rose bushes
+            const bushPositions = [10, 25, 42, 60, 75, 90]; // Positions in percentage
+            
+            bushPositions.forEach(position => {
+                // Randomize each bush
+                const bushHeight = 80 + Math.random() * 70;
+                createRoseBush(position, bushHeight, gardenContainer);
+            });
+        }
+
+        function createRoseBush(position, height, container) {
+            const bush = document.createElement('div');
+            bush.className = 'rose-bush';
+            bush.style.left = position + '%';
+            bush.style.height = height + 'px';
+            container.appendChild(bush);
+            
+            // Create stem
+            const stem = document.createElement('div');
+            stem.className = 'stem';
+            stem.style.height = height + 'px';
+            stem.style.bottom = '0';
+            stem.style.left = '50%';
+            stem.style.transform = `translateX(-50%) rotate(${-5 + Math.random() * 10}deg)`;
+            bush.appendChild(stem);
+            
+            // Create roses (2-3 per bush)
+            const roseCount = 2 + Math.floor(Math.random() * 2);
+            
+            for (let i = 0; i < roseCount; i++) {
+                const rose = document.createElement('div');
+                rose.className = 'rose';
+                
+                // Position roses at different heights
+                const roseHeight = (i + 1) / (roseCount + 1);
+                rose.style.bottom = (height * roseHeight) + 'px';
+                rose.style.left = `calc(50% - ${15 + Math.random() * 10}px)`;
+                
+                // Random size variation
+                const roseSize = 25 + Math.random() * 10;
+                rose.style.width = roseSize + 'px';
+                rose.style.height = roseSize + 'px';
+                
+                // Random color variation
+                const hue = 340 + Math.random() * 20;
+                const saturation = 70 + Math.random() * 20;
+                const lightness = 45 + Math.random() * 15;
+                rose.style.background = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+                
+                // Add subtle animation
+                rose.style.animation = `rose-sway ${3 + Math.random() * 2}s ease-in-out infinite`;
+                rose.style.animationDelay = `${Math.random() * 2}s`;
+                
+                bush.appendChild(rose);
+                
+                // Add 2-3 leaves around each rose
+                const leafCount = 2 + Math.floor(Math.random() * 2);
+                
+                for (let j = 0; j < leafCount; j++) {
+                    const leaf = document.createElement('div');
+                    leaf.className = 'leaf';
+                    
+                    // Position leaves around roses
+                    const angle = (j / leafCount) * Math.PI * 2;
+                    const leafDistance = roseSize / 2 + 5;
+                    
+                    const leafX = Math.cos(angle) * leafDistance;
+                    const leafY = Math.sin(angle) * leafDistance;
+                    
+                    leaf.style.bottom = (height * roseHeight - leafY) + 'px';
+                    leaf.style.left = `calc(50% - ${15 + Math.random() * 10 - leafX}px)`;
+                    
+                    // Random rotation
+                    leaf.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    
+                    // Random size variation
+                    const leafSize = 15 + Math.random() * 10;
+                    leaf.style.width = leafSize + 'px';
+                    leaf.style.height = (leafSize * 0.6) + 'px';
+                    
+                    // Add subtle animation
+                    leaf.style.animation = `leaf-flutter ${2 + Math.random() * 2}s ease-in-out infinite`;
+                    leaf.style.animationDelay = `${Math.random() * 2}s`;
+                    
+                    bush.appendChild(leaf);
+                }
+            }
+            
+            // Add a few standalone leaves along the stem
+            const standaloneLeafCount = 2 + Math.floor(Math.random() * 3);
+            
+            for (let i = 0; i < standaloneLeafCount; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                
+                // Position leaves at different heights along the stem
+                const leafHeight = Math.random() * (height * 0.7);
+                leaf.style.bottom = leafHeight + 'px';
+                
+                // Alternate sides
+                const side = i % 2 === 0 ? 1 : -1;
+                leaf.style.left = `calc(50% + ${side * (5 + Math.random() * 5)}px)`;
+                
+                // Random rotation (point outward from stem)
+                leaf.style.transform = `rotate(${side * 45 + Math.random() * 30}deg)`;
+                
+                // Random size variation
+                const leafSize = 15 + Math.random() * 10;
+                leaf.style.width = leafSize + 'px';
+                leaf.style.height = (leafSize * 0.6) + 'px';
+                
+                // Add subtle animation
+                leaf.style.animation = `leaf-flutter ${2 + Math.random() * 2}s ease-in-out infinite`;
+                leaf.style.animationDelay = `${Math.random() * 2}s`;
+                
+                bush.appendChild(leaf);
+            }
         }
 
         function createPetals(count) {
@@ -353,6 +720,71 @@
                 petal.style.animationDelay = Math.random() * 10 + 's';
                 
                 document.body.appendChild(petal);
+            }
+        }
+
+        function createNightSky() {
+            // Add moon
+            const moon = document.createElement('div');
+            moon.className = 'moon';
+            document.body.appendChild(moon);
+            
+            // Add moonlight glow
+            const moonlight = document.createElement('div');
+            moonlight.className = 'moonlight';
+            document.body.appendChild(moonlight);
+            
+            // Add stars with different sizes
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random size class
+                const sizeRandom = Math.random();
+                if (sizeRandom < 0.6) {
+                    star.classList.add('tiny');
+                } else if (sizeRandom < 0.85) {
+                    star.classList.add('small');
+                } else if (sizeRandom < 0.95) {
+                    star.classList.add('medium');
+                } else {
+                    star.classList.add('large');
+                }
+                
+                // Random animation
+                if (Math.random() < 0.3) {
+                    star.classList.add('twinkle');
+                } else if (Math.random() < 0.15) {
+                    star.classList.add('shimmer');
+                }
+                
+                // Position
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                
+                document.body.appendChild(star);
+            }
+            
+            // Add shooting stars
+            for (let i = 0; i < 3; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                shootingStar.style.top = Math.random() * 30 + 'vh';
+                shootingStar.style.left = 50 + Math.random() * 40 + 'vw';
+                shootingStar.style.animationDelay = Math.random() * 15 + 's';
+                document.body.appendChild(shootingStar);
+            }
+            
+            // Add a few clouds
+            for (let i = 0; i < 4; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'cloud';
+                cloud.style.width = 100 + Math.random() * 200 + 'px';
+                cloud.style.height = 50 + Math.random() * 50 + 'px';
+                cloud.style.top = Math.random() * 60 + 'vh';
+                cloud.style.animationDuration = 80 + Math.random() * 80 + 's';
+                cloud.style.animationDelay = -Math.random() * 80 + 's';
+                document.body.appendChild(cloud);
             }
         }
 
@@ -384,6 +816,7 @@
         }
 
         // Initialize with rose garden
+        createRoseGarden();
         createPetals(30);
         
         // Pre-load the letter for smoother transition
