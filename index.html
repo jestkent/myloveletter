@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eternal Words - Your Love Letter</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
+        
         :root {
             --warm-ivory: #FDF6E8;
+            --rose-red: #e91e63;
+            --gold-accent: #D4AF37;
+            --deep-purple: #4A2C3F;
         }
 
         * {
@@ -18,70 +23,219 @@
         body {
             background: var(--warm-ivory);
             font-family: 'Lora', serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+            transition: background 1.5s ease;
         }
 
         .controls {
             width: 100%;
             max-width: 600px;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 10px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(5px);
         }
 
         .controls select, .controls button {
             flex: 1 1 45%;
             max-width: 200px;
-            padding: 10px;
+            padding: 12px;
             font-family: 'Lora', serif;
             font-size: 14px;
-            border: 1px solid #ccc;
+            border: none;
             border-radius: 5px;
             background: #fff;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .controls button {
-            background: #4A2C3F;
+            background: var(--deep-purple);
             color: #fff;
             font-weight: bold;
         }
 
         .controls button:hover {
-            background: #D4AF37;
-            color: #4A2C3F;
+            background: var(--gold-accent);
+            color: var(--deep-purple);
+            transform: translateY(-2px);
+        }
+
+        .image-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            perspective: 1000px;
+            z-index: 5;
         }
 
         .image {
             width: 100%;
-            max-width: 400px;
             height: auto;
             cursor: pointer;
-            transition: opacity 0.5s ease;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform-origin: center;
         }
 
-        .hidden {
-            display: none;
+        #envelope {
+            transform-style: preserve-3d;
+        }
+
+        #letter {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .letter-visible {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+        }
+
+        .envelope-open {
+            transform: rotateY(180deg) !important;
+            opacity: 0;
+        }
+
+        /* Rose Petals Animation */
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--rose-red);
+            border-radius: 50% 0 50% 50%;
+            transform: rotate(45deg);
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            animation: petal-fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes petal-fall {
+            0% { 
+                transform: translateY(-10vh) translateX(0) rotate(45deg);
+                opacity: 0.9;
+            }
+            25% {
+                transform: translateY(15vh) translateX(10px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(40vh) translateX(-10px) rotate(135deg);
+            }
+            75% {
+                transform: translateY(70vh) translateX(15px) rotate(180deg);
+            }
+            100% { 
+                transform: translateY(110vh) translateX(-5px) rotate(225deg);
+                opacity: 0.3;
+            }
+        }
+
+        /* Background Styles */
+        .rose-garden {
+            background: linear-gradient(to bottom, var(--warm-ivory), #ffebee);
+        }
+
+        .starry-night {
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+        }
+
+        .paris-lights {
+            background: linear-gradient(135deg, #614385, #516395);
+            position: relative;
+        }
+
+        .paris-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1200/800') no-repeat center center;
+            background-size: cover;
+            opacity: 0.2;
+            z-index: 1;
+            filter: blur(2px);
+        }
+
+        .paris-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+            z-index: 2;
+        }
+
+        .eiffel-glow {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 300px;
+            background: radial-gradient(ellipse at bottom, rgba(255,215,0,0.3), transparent 70%);
+            z-index: 2;
+            filter: blur(10px);
+        }
+
+        .gold-sparkle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold-accent);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: sparkle 3s infinite;
+            z-index: 3;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Heartbeat animation for letter opening */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Floating effect for letter */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
         }
     </style>
 </head>
-<body>
+<body class="rose-garden">
     <div class="controls">
         <select id="background">
-            <option value="rose">Rose Garden</option>
-            <option value="stars">Starry Night</option>
-            <option value="paris">Paris Lights</option>
+            <option value="rose-garden">Rose Garden</option>
+            <option value="starry-night">Starry Night</option>
+            <option value="paris-lights">Paris Lights</option>
         </select>
         <select id="music" onchange="playMusic()">
             <option value="">Select Music</option>
@@ -92,45 +246,149 @@
         <button onclick="openLetter()">Open Letter</button>
     </div>
 
-    <img src="Envelop.png" alt="Envelope" class="image" id="envelope">
-    <img src="Letter.jpg" alt="Letter" class="image hidden" id="letter">
+    <div class="image-container">
+        <img src="Envelop.png" alt="Envelope" class="image" id="envelope">
+        <img src="Letter.jpg" alt="Letter" class="image" id="letter">
+    </div>
 
     <script>
         function openLetter() {
             const envelope = document.getElementById('envelope');
             const letter = document.getElementById('letter');
-
-            // Hide the envelope and show the letter
-            envelope.classList.add('hidden');
-            letter.classList.remove('hidden');
+            
+            // Animate envelope opening
+            envelope.classList.add('envelope-open');
+            
+            // Show letter with delay
+            setTimeout(() => {
+                letter.classList.add('letter-visible');
+                letter.classList.add('floating');
+                
+                // Add heartbeat effect
+                letter.style.animation = 'heartbeat 1s ease-in-out, float 6s ease-in-out infinite';
+                setTimeout(() => {
+                    letter.style.animation = 'float 6s ease-in-out infinite';
+                }, 1000);
+            }, 600);
         }
-
-        // Background changer
-        document.getElementById('background').addEventListener('change', function(e) {
-            const body = document.body;
-            body.style.background = e.target.value === 'stars' ? '#1a2b5f' : 
-                                    e.target.value === 'paris' ? '#2c3e50' : 
-                                    'var(--warm-ivory)';
-        });
 
         let currentAudio = null;
 
         function playMusic() {
             const musicSelect = document.getElementById('music');
             const selectedMusic = musicSelect.value;
-
-            // Stop currently playing audio if any
+            
             if (currentAudio) {
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
             }
-
-            // Play the selected music
+            
             if (selectedMusic) {
                 currentAudio = new Audio(selectedMusic);
+                currentAudio.loop = true;
+                currentAudio.volume = 0.7;
+                
+                // Fade in effect
+                currentAudio.volume = 0;
                 currentAudio.play();
+                
+                let fadeIn = setInterval(() => {
+                    if (currentAudio.volume < 0.7) {
+                        currentAudio.volume += 0.05;
+                    } else {
+                        clearInterval(fadeIn);
+                    }
+                }, 100);
             }
         }
+
+        // Background handler
+        const backgroundSelect = document.getElementById('background');
+        backgroundSelect.addEventListener('change', function(e) {
+            const body = document.body;
+            
+            // First clean up existing elements
+            clearElements();
+            
+            // Apply new background with transition
+            body.className = e.target.value;
+            
+            switch(e.target.value) {
+                case 'rose-garden':
+                    createPetals(30);
+                    break;
+                case 'starry-night':
+                    createPetals(40);
+                    break;
+                case 'paris-lights':
+                    createParisScene();
+                    createPetals(20);
+                    break;
+            }
+        });
+
+        function clearElements() {
+            const elements = document.querySelectorAll('.petal, .paris-background, .paris-overlay, .eiffel-glow, .gold-sparkle');
+            elements.forEach(el => el.remove());
+        }
+
+        function createPetals(count) {
+            for (let i = 0; i < count; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                
+                // Randomize petal properties for more natural movement
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.top = Math.random() * -50 + 'vh'; // Start above viewport
+                petal.style.opacity = 0.5 + Math.random() * 0.5;
+                petal.style.width = 15 + Math.random() * 15 + 'px';
+                petal.style.height = 15 + Math.random() * 15 + 'px';
+                
+                // Vary the shade of rose red slightly
+                const hue = Math.random() * 20 - 10; // +/- 10 degrees
+                petal.style.background = `hsl(340, 82%, ${55 + Math.random() * 10}%)`;
+                
+                // Different animation speeds
+                petal.style.animationDuration = 8 + Math.random() * 12 + 's';
+                petal.style.animationDelay = Math.random() * 10 + 's';
+                
+                document.body.appendChild(petal);
+            }
+        }
+
+        function createParisScene() {
+            // Add Paris background
+            const parisBackground = document.createElement('div');
+            parisBackground.className = 'paris-background';
+            document.body.appendChild(parisBackground);
+            
+            // Add overlay gradient
+            const parisOverlay = document.createElement('div');
+            parisOverlay.className = 'paris-overlay';
+            document.body.appendChild(parisOverlay);
+            
+            // Add Eiffel Tower glow
+            const eiffelGlow = document.createElement('div');
+            eiffelGlow.className = 'eiffel-glow';
+            document.body.appendChild(eiffelGlow);
+            
+            // Add gold sparkles
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'gold-sparkle';
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = 60 + Math.random() * 40 + 'vh'; // Bottom 40% of screen
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                document.body.appendChild(sparkle);
+            }
+        }
+
+        // Initialize with rose garden
+        createPetals(30);
+        
+        // Pre-load the letter for smoother transition
+        const letterImg = new Image();
+        letterImg.src = "Letter.jpg";
     </script>
 </body>
 </html>
